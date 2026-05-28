@@ -132,6 +132,9 @@
     }
 
     .tab-btn {
+      appearance: none;
+      text-decoration: none;
+      display: flex;
       border: 1px solid rgba(255,255,255,0.08);
       background: rgba(255,255,255,0.03);
       color: var(--text);
@@ -177,6 +180,10 @@
     .tab-btn:hover::after,
     .tab-btn.active::after {
       opacity: 1;
+    }
+
+    .tab-btn:visited {
+      color: var(--text);
     }
 
     .tab-btn.active {
@@ -575,26 +582,26 @@
 
       <div class="menu-title">Menu</div>
       <nav class="nav" aria-label="Główna nawigacja">
-        <button class="tab-btn active" data-page="home">
+        <a class="tab-btn active" href="#home" data-page="home">
           <span class="material-symbols-rounded">home</span>
           <span class="label">Strona główna</span>
-        </button>
-        <button class="tab-btn" data-page="countdown">
+        </a>
+        <a class="tab-btn" href="#countdown" data-page="countdown">
           <span class="material-symbols-rounded">schedule</span>
           <span class="label">Odliczanie</span>
-        </button>
-        <button class="tab-btn" data-page="news">
+        </a>
+        <a class="tab-btn" href="#news" data-page="news">
           <span class="material-symbols-rounded">newspaper</span>
           <span class="label">Najnowsze wiadomości</span>
-        </button>
-        <button class="tab-btn" data-page="contact">
+        </a>
+        <a class="tab-btn" href="#contact" data-page="contact">
           <span class="material-symbols-rounded">mail</span>
           <span class="label">Kontakt</span>
-        </button>
-        <button class="tab-btn" data-page="map">
+        </a>
+        <a class="tab-btn" href="#map" data-page="map">
           <span class="material-symbols-rounded">map</span>
           <span class="label">Mapa</span>
-        </button>
+        </a>
       </nav>
 
       <div class="sidebar-footer">
@@ -750,8 +757,21 @@
     }
 
     buttons.forEach(btn => {
-      btn.addEventListener('click', () => switchPage(btn.dataset.page));
+      btn.addEventListener('click', (e) => {
+        const target = btn.dataset.page;
+        if (target) {
+          e.preventDefault();
+          switchPage(target);
+          document.getElementById(target)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          history.replaceState(null, '', `#${target}`);
+        }
+      });
     });
+
+    const initialHash = window.location.hash.replace('#', '');
+    if (initialHash && document.getElementById(initialHash)) {
+      switchPage(initialHash);
+    }
 
     const targetDate = new Date('2026-07-01T00:00:00');
     const daysEl = document.getElementById('days');
