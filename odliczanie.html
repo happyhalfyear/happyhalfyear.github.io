@@ -1,0 +1,291 @@
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Countdown z dniami i strefami</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    font-family: 'Poppins', sans-serif;
+    background: black;
+    color: white;
+    overflow: hidden;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url('https://media.giphy.com/media/Qpf04kVzDnkt39OfQK/giphy.gif') center center / cover no-repeat;
+    z-index: -1;
+    opacity: 0.3;
+  }
+
+  .container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  @keyframes glowColors {
+    0%   { border-color: #FF5E00; text-shadow: 0 0 20px #FF8C00, 0 0 35px #FFA500; color: #FF8C00;}
+    33%  { border-color: #00BFFF; text-shadow: 0 0 20px #1E90FF, 0 0 35px #00BFFF; color: #1E90FF;}
+    66%  { border-color: #FF1493; text-shadow: 0 0 20px #FF69B4, 0 0 35px #FF1493; color: #FF69B4;}
+    100% { border-color: #FF5E00; text-shadow: 0 0 20px #FF8C00, 0 0 35px #FFA500; color: #FF8C00;}
+  }
+
+  #countdown {
+    font-size: 9vw;
+    font-weight: 700;
+    padding: 30px 50px;
+    border: 6px solid #FF5E00;
+    border-radius: 20px;
+    background: rgba(0,0,0,0.45);
+    min-width: 460px;
+    user-select: none;
+    animation: glowColors 6s linear infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #label {
+    margin-top: 20px;
+    font-size: 3vw;
+    color: #FF8C00;
+    font-weight: 600;
+    text-align: center;
+    letter-spacing: 0.12em;
+    user-select: none;
+    animation: glowColors 6s linear infinite;
+  }
+
+  #message {
+    margin-top: 20px;
+    font-size: 4vw;
+    color: #00FF00;
+    font-weight: 700;
+    text-align: center;
+    display: none;
+  }
+
+  .digit-wrapper {
+    display: inline-block;
+    overflow: hidden;
+    height: 1em;
+    vertical-align: bottom;
+    position: relative;
+    width: 0.6em;
+    line-height: 1em;
+  }
+
+  .digit-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    transition: top 0.5s ease-out;
+  }
+
+  .separator {
+    display: inline-block;
+    width: 0.3em;
+    text-align: center;
+    line-height: 1em;
+    vertical-align: bottom;
+    user-select: none;
+  }
+
+  .space {
+    width: 0em;
+    display: inline-block;
+  }
+
+  @media (max-width: 600px) {
+    #countdown {
+      font-size: 14vw;
+      padding: 20px 30px;
+      min-width: 320px;
+    }
+    #label {
+      font-size: 5vw;
+    }
+    #message {
+      font-size: 7vw;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div id="countdown"></div>
+    <div id="label">UTC +14</div>
+    <div id="message">Happy New Midier 2025!</div>
+  </div>
+
+<script>
+  // Lista stref i ich offset¨®w w godzinach
+  const timezones = [
+    { label: "UTC +14", offset: 14 },
+    { label: "UTC +13", offset: 13 },
+    { label: "UTC +12:45", offset: 12.75 }
+    // mo0—4esz doda0Œ4 kolejne strefy je0”2li chcesz
+  ];
+
+  let currentZoneIndex = 0;
+
+  // Funkcja do ustawienia targetu i offsetu dla aktualnej strefy
+  function setTargetForZone(index) {
+    const tz = timezones[index];
+    // 1 lipca 2025, 00:00 UTC (miesi0Œ2c = 6, bo zero-index w JS)
+    const targetUTC = Date.UTC(2026, 6, 1, 0, 0, 0);
+    const offsetMs = tz.offset * 60 * 60 * 1000;
+    return targetUTC - offsetMs;
+  }
+
+  let targetTime = setTargetForZone(currentZoneIndex);
+
+  const countdownElem = document.getElementById('countdown');
+  const labelElem = document.getElementById('label');
+  const messageElem = document.getElementById('message');
+
+  // Tworzenie element¨®w cyfr i separator¨®w
+  function createDigitSpans() {
+    countdownElem.innerHTML = '';
+    const space = document.createElement('span');
+    space.className = 'space';
+    countdownElem.appendChild(space);
+    for(let i=0; i<2; i++) createDigitWrapper(); // dni 2 cyfry
+    createSeparator();
+    for(let i=0; i<2; i++) createDigitWrapper(); // godziny 2 cyfry
+    createSeparator();
+    for(let i=0; i<2; i++) createDigitWrapper(); // minuty 2 cyfry
+    createSeparator();
+    for(let i=0; i<2; i++) createDigitWrapper(); // sekundy 2 cyfry
+  }
+
+  function createDigitWrapper() {
+    const wrapper = document.createElement('span');
+    wrapper.classList.add('digit-wrapper');
+    const inner = document.createElement('div');
+    inner.classList.add('digit-inner');
+    for(let d=0; d<=12; d++) {
+      const digitDiv = document.createElement('div');
+      digitDiv.textContent = d;
+      digitDiv.style.height = '1em';
+      digitDiv.style.lineHeight = '1em';
+      digitDiv.style.textAlign = 'center';
+      inner.appendChild(digitDiv);
+    }
+    wrapper.appendChild(inner);
+    countdownElem.appendChild(wrapper);
+  }
+
+  function createSeparator() {
+    const sep = document.createElement('span');
+    sep.className = 'separator';
+    sep.textContent = ':';
+    countdownElem.appendChild(sep);
+  }
+
+  createDigitSpans();
+
+  function pad(n, length = 2) {
+    return n.toString().padStart(length, '0');
+  }
+
+  // D0—2wi0Ž1ki
+  const tickSound = new Audio('https://actions.google.com/sounds/v1/alarms/clock_tick.ogg');
+  const fireworksSound = new Audio('https://actions.google.com/sounds/v1/fireworks/fireworks_crack.ogg');
+
+  let ticking = false;
+  let ended = false;
+
+  function updateCountdown() {
+    const now = Date.now();
+    let diff = targetTime - now;
+    if(diff < 0) diff = 0;
+
+const totalSeconds = Math.floor(diff / 1000);
+
+const days = Math.floor(totalSeconds / 86400);
+let remainder = totalSeconds % 86400;
+
+const hours = Math.floor(remainder / 3600);
+remainder %= 3600;
+
+const minutes = Math.floor(remainder / 60);
+const seconds = remainder % 60;
+
+    // Ukrywanie dni/godzin/minut je0”2li zero (prosty spos¨®b)
+    // Mo0—4esz rozszerzy0Œ4 na bardziej zaawansowane ukrywanie, je0”2li chcesz
+    // Podobnie mo0—4na zrobi0Œ4 z godzinami i minutami je0”2li chcesz, ale tutaj zostawiam je zawsze widoczne
+
+    const daysStr = pad(days);
+    const hoursStr = pad(hours);
+    const minutesStr = pad(minutes);
+    const secondsStr = pad(seconds);
+
+    const fullStr = daysStr + hoursStr + minutesStr + secondsStr;
+
+    const wrappers = countdownElem.querySelectorAll('.digit-wrapper');
+    for(let i=0; i < wrappers.length; i++) {
+      const digit = Number(fullStr[i]);
+      const inner = wrappers[i].querySelector('.digit-inner');
+      inner.style.top = `-${digit}em`;
+    }
+
+    // Obs0’0uga d0—2wi0Ž1ku tykania na ostatnie 10 sekund
+    if(totalSeconds <= 10 && totalSeconds > 0) {
+      if(!ticking) {
+        tickSound.loop = true;
+        tickSound.play();
+        ticking = true;
+      }
+    } else {
+      if(ticking) {
+        tickSound.pause();
+        tickSound.currentTime = 0;
+        ticking = false;
+      }
+    }
+
+    // Po wyzerowaniu
+    if(totalSeconds === 0 && !ended) {
+      ended = true;
+
+      tickSound.pause();
+      tickSound.currentTime = 0;
+
+      // Poka0—4 wiadomo0”20Œ4
+      messageElem.style.display = 'block';
+
+      // Zagraj d0—2wi0Ž1k fajerwerk¨®w
+      fireworksSound.play();
+
+      // Po 10 sekundach przejd0—2 do nast0Ž1pnej strefy i zresetuj odliczanie
+      setTimeout(() => {
+        messageElem.style.display = 'none';
+
+        // resetuj czas startu, 0—4eby liczy0Œ4 do kolejnego targetu i tak dalej
+        currentZoneIndex++;
+        if(currentZoneIndex >= timezones.length) currentZoneIndex = 0; // zap0Ž1tlenie
+
+        labelElem.textContent = timezones[currentZoneIndex].label;
+        targetTime = setTargetForZone(currentZoneIndex);
+        ended = false;
+      }, 10000);
+    }
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
+</body>
+</html>
