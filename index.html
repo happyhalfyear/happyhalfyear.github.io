@@ -485,4 +485,320 @@
     }
 
     input:focus, select:focus, textarea:focus {
-      border-color: rgba(124, 92, 255,
+      border-color: rgba(124, 92, 255, 0.6);
+      box-shadow: 0 0 0 4px rgba(124, 92, 255, 0.12);
+    }
+
+    textarea { min-height: 140px; resize: vertical; }
+
+    .map-frame {
+      width: 100%;
+      min-height: 380px;
+      border: 0;
+      border-radius: 22px;
+      overflow: hidden;
+      filter: saturate(1.05) contrast(1.02);
+    }
+
+    .map-note {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .footer {
+      padding: 18px 30px 26px;
+      color: rgba(238,242,255,0.66);
+      font-size: 0.92rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .sparkle {
+      display: inline-block;
+      animation: sparkle 2.4s ease-in-out infinite;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @keyframes glowPulse {
+      0%, 100% { transform: translateY(0); filter: saturate(1); }
+      50% { transform: translateY(-2px); filter: saturate(1.2); }
+    }
+
+    @keyframes floaty {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-5px) rotate(3deg); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes sparkle {
+      0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+      50% { transform: scale(1.15) rotate(10deg); opacity: 0.8; }
+    }
+
+    @media (max-width: 1080px) {
+      .app { grid-template-columns: 1fr; }
+      .sidebar {
+        position: relative;
+        height: auto;
+      }
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 720px) {
+      .app { width: min(100% - 14px, 1240px); margin-top: 7px; }
+      .hero, .content-area, .footer { padding-left: 18px; padding-right: 18px; }
+      .countdown { grid-template-columns: repeat(2, 1fr); }
+      .hero-top { flex-direction: column; align-items: flex-start; }
+      .news-item { grid-template-columns: 1fr; }
+      .news-icon { width: 48px; height: 48px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-badge">✨</div>
+        <div>
+          <h1>HappyHalfYear</h1>
+          <p>Nowoczesne świętowanie połowy roku</p>
+        </div>
+      </div>
+
+      <div class="menu-title">Menu</div>
+      <nav class="nav" aria-label="Główna nawigacja">
+        <button class="tab-btn active" data-page="home">
+          <span class="material-symbols-rounded">home</span>
+          <span class="label">Strona główna</span>
+        </button>
+        <button class="tab-btn" data-page="countdown">
+          <span class="material-symbols-rounded">schedule</span>
+          <span class="label">Odliczanie</span>
+        </button>
+        <button class="tab-btn" data-page="news">
+          <span class="material-symbols-rounded">newspaper</span>
+          <span class="label">Najnowsze wiadomości</span>
+        </button>
+        <button class="tab-btn" data-page="contact">
+          <span class="material-symbols-rounded">mail</span>
+          <span class="label">Kontakt</span>
+        </button>
+        <button class="tab-btn" data-page="map">
+          <span class="material-symbols-rounded">map</span>
+          <span class="label">Mapa</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div>Świeży design, neon, szkło i płynne animacje.</div>
+        <div class="pill-row">
+          <span class="pill">HTML</span>
+          <span class="pill">CSS</span>
+          <span class="pill">JS</span>
+          <span class="pill">Google Fonts</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="content">
+      <section class="hero">
+        <div class="hero-top">
+          <div class="status"><span class="status-dot"></span> Tryb święta aktywny</div>
+          <div class="status"><span class="material-symbols-rounded" style="font-size:18px;">schedule</span> 30 czerwca → 1 lipca</div>
+        </div>
+        <div class="hero-main">
+          <h1 class="neon-title">Święto Półrocza 2026 <span class="sparkle">✨</span></h1>
+          <p class="subtitle">Obchodzimy połowę roku w wielkim stylu!</p>
+        </div>
+      </section>
+
+      <section class="content-area">
+        <div id="home" class="page active">
+          <div class="grid-2">
+            <div class="card">
+              <div class="section-title"><span class="material-symbols-rounded">info</span><h2>Co to jest Święto Półrocza?</h2></div>
+              <p>
+                Święto Półrocza to wydarzenie, które ma na celu świętowanie połowy roku. Zaczyna się w nocy z 30 czerwca na 1 lipca, kiedy kończy się pierwsze półrocze roku, a zaczyna drugie. To doskonała okazja, aby zresetować swoje cele, podsumować osiągnięcia i przygotować się na kolejną połowę roku. W zależności od strefy czasowej, moment ten jest obchodzony o północy lokalnego czasu, co oznacza, że w różnych miejscach świata święto rozpoczyna się w różnych godzinach. Na przykład, gdy w Moskwie jest północ, w Polsce jest 23:00, a w Londynie 22:00.
+              </p>
+              <div style="height:14px"></div>
+              <p>
+                Kiedy występuje Święto Półrocza?<br><br>
+                Drugie półrocze roku 2026 rozpoczyna się z 30 czerwca na 1 lipca. W każdym kraju moment ten będzie obchodzony o północy czasu lokalnego, w zależności od strefy czasowej. W miejscach położonych na wschód od Polski, takich jak Moskwa, święto rozpocznie się wcześniej, a na zachodzie, na przykład w Londynie, później. To globalne wydarzenie, które jednoczy różne strefy czasowe tego samego dnia, ale o różnych godzinach.
+              </p>
+            </div>
+            <div class="info-box">
+              <div class="card mini">
+                <strong>Połowa roku, nowy start</strong>
+                <p>Lepszy moment na odświeżenie planów, celów i energii.</p>
+              </div>
+              <div class="card mini">
+                <strong>Neonowy klimat</strong>
+                <p>Animacje, szkło i światło dają nowoczesny wygląd strony.</p>
+              </div>
+              <div class="card mini">
+                <strong>Wszystko na jednej stronie</strong>
+                <p>Menu przełącza sekcje bez przeładowania, płynnie i lekko.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="countdown" class="page">
+          <div class="card">
+            <div class="section-title"><span class="material-symbols-rounded">timer</span><h2>Odliczanie do 1 lipca 2026</h2></div>
+            <p>Liczymy do startu drugiego półrocza w czasie lokalnym.</p>
+            <div class="countdown" aria-live="polite">
+              <div class="time-box"><span id="days" class="num">00</span><span class="txt">dni</span></div>
+              <div class="time-box"><span id="hours" class="num">00</span><span class="txt">godzin</span></div>
+              <div class="time-box"><span id="minutes" class="num">00</span><span class="txt">minut</span></div>
+              <div class="time-box"><span id="seconds" class="num">00</span><span class="txt">sekund</span></div>
+            </div>
+            <div style="height:16px"></div>
+            <p id="countdownNote">Trwa przygotowanie do wielkiego startu.</p>
+          </div>
+        </div>
+
+        <div id="news" class="page">
+          <div class="card">
+            <div class="section-title"><span class="material-symbols-rounded">campaign</span><h2>Najnowsze wiadomości</h2></div>
+            <div class="news-list">
+              <article class="news-item">
+                <div class="news-icon">🎉</div>
+                <div>
+                  <h4>Nowa oprawa świąteczna uruchomiona</h4>
+                  <p>Świeże efekty świetlne, neon i płynne przejścia sprawiają, że strona wygląda nowocześnie i dynamicznie.</p>
+                </div>
+              </article>
+              <article class="news-item">
+                <div class="news-icon">✨</div>
+                <div>
+                  <h4>Przygotowania do północy trwają</h4>
+                  <p>Wszystko jest gotowe na odświeżenie planów, cele i celebrację nowego półrocza z wyjątkowym stylem.</p>
+                </div>
+              </article>
+              <article class="news-item">
+                <div class="news-icon">🌍</div>
+                <div>
+                  <h4>Święto w różnych strefach czasowych</h4>
+                  <p>Moment startu różni się zależnie od kraju, więc globalna zabawa dzieje się o różnych godzinach na całym świecie.</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+
+        <div id="contact" class="page">
+          <div class="card">
+            <div class="section-title"><span class="material-symbols-rounded">contact_mail</span><h2>Kontakt</h2></div>
+            <form class="form" id="contactForm">
+              <div class="field">
+                <label for="email">Twój email</label>
+                <input id="email" type="email" placeholder="np. name@example.com" required />
+              </div>
+              <div class="field">
+                <label for="category">Wybierz kategorię</label>
+                <select id="category" required>
+                  <option>Wsparcie</option>
+                  <option>Brakujący obrazek</option>
+                  <option>Błędne dane</option>
+                  <option>Pytanie</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="message">Opisz problem</label>
+                <textarea id="message" placeholder="Napisz, co trzeba poprawić..." required></textarea>
+              </div>
+              <button class="button primary" type="submit"><span class="material-symbols-rounded">send</span> Wyślij zgłoszenie</button>
+              <p id="formMsg" class="hidden"></p>
+            </form>
+          </div>
+        </div>
+
+        <div id="map" class="page">
+          <div class="card">
+            <div class="section-title"><span class="material-symbols-rounded">location_on</span><h2>Mapa</h2></div>
+            <iframe
+              class="map-frame"
+              title="Mapa świata"
+              src="https://www.openstreetmap.org/export/embed.html?bbox=-180%2C-60%2C180%2C80&layer=mapnik"
+              loading="lazy">
+            </iframe>
+            <p class="map-note">Mapa pokazuje, że Święto Półrocza jest wydarzeniem globalnym i może zaczynać się w różnych miejscach o różnych godzinach lokalnych.</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="footer">© 2025-2026 HappyHalfYear - Wszelkie prawa zastrzeżone</div>
+    </main>
+  </div>
+
+  <script>
+    const buttons = document.querySelectorAll('.tab-btn');
+    const pages = document.querySelectorAll('.page');
+
+    function switchPage(id) {
+      pages.forEach(page => page.classList.toggle('active', page.id === id));
+      buttons.forEach(btn => btn.classList.toggle('active', btn.dataset.page === id));
+    }
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => switchPage(btn.dataset.page));
+    });
+
+    const targetDate = new Date('2026-07-01T00:00:00');
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+    const noteEl = document.getElementById('countdownNote');
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        daysEl.textContent = '00';
+        hoursEl.textContent = '00';
+        minutesEl.textContent = '00';
+        secondsEl.textContent = '00';
+        noteEl.textContent = 'Święto Półrocza właśnie trwa!';
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      daysEl.textContent = String(days).padStart(2, '0');
+      hoursEl.textContent = String(hours).padStart(2, '0');
+      minutesEl.textContent = String(minutes).padStart(2, '0');
+      secondsEl.textContent = String(seconds).padStart(2, '0');
+
+      noteEl.textContent = `Do 1 lipca 2026 zostało ${days} dni, ${hours} godzin, ${minutes} minut i ${seconds} sekund.`;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    const form = document.getElementById('contactForm');
+    const msg = document.getElementById('formMsg');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      msg.classList.remove('hidden');
+      msg.textContent = 'Dziękujemy! Zgłoszenie zostało zapisane lokalnie w interfejsie strony.';
+      msg.style.color = 'var(--good)';
+      form.reset();
+    });
+  </script>
+</body>
+</html>
