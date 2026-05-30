@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HappyHalfYear - Mapa</title>
+  <meta name="theme-color" content="#0f1020" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Material+Symbols+Rounded:FILL@0..1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-badge">✨</div>
+        <div>
+          <h1>HappyHalfYear</h1>
+          <p>Nowoczesne świętowanie połowy roku</p>
+        </div>
+      </div>
+
+      <div class="menu-title">Menu</div>
+      <nav class="nav" aria-label="Główna nawigacja">
+        <a class="tab-btn" href="index.html">
+          <span class="material-symbols-rounded">home</span><span class="label">Strona główna</span>
+        </a>
+        <a class="tab-btn" href="countdown.html">
+          <span class="material-symbols-rounded">schedule</span><span class="label">Odliczanie</span>
+        </a>
+        <a class="tab-btn" href="news.html">
+          <span class="material-symbols-rounded">newspaper</span><span class="label">Najnowsze wiadomości</span>
+        </a>
+        <a class="tab-btn" href="contact.html">
+          <span class="material-symbols-rounded">mail</span><span class="label">Kontakt</span>
+        </a>
+        <a class="tab-btn" href="map.html">
+          <span class="material-symbols-rounded">map</span><span class="label">Mapa</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div>Świeży design, neon, szkło i płynne animacje.</div>
+        <div class="pill-row">
+          <span class="pill">HTML</span>
+          <span class="pill">CSS</span>
+          <span class="pill">JS</span>
+          <span class="pill">Google Fonts</span>
+        </div>
+      </div>
+    </aside>
+    
+    <main class="content">
+      <section class="hero">
+        <div class="hero-top">
+          <div class="status"><span class="status-dot"></span> Tryb święta aktywny</div>
+          <div class="status"><span class="material-symbols-rounded" style="font-size:18px;">schedule</span> 30 czerwca → 1 lipca</div>
+        </div>
+        <div class="hero-main">
+          <h1 class="neon-title">Święto Półrocza 2026 <span class="sparkle">✨</span></h1>
+          <p class="subtitle">Obchodzimy połowę roku w wielkim stylu!</p>
+        </div>
+      </section>
+
+      <section class="content-area">
+        
+<div class="page">
+  <div class="card">
+    <div class="section-title"><span class="material-symbols-rounded">location_on</span><h2>Mapa</h2></div>
+    <iframe
+      class="map-frame"
+      title="Mapa świata"
+      src="https://www.openstreetmap.org/export/embed.html?bbox=-180%2C-60%2C180%2C80&layer=mapnik"
+      loading="lazy">
+    </iframe>
+    <p class="map-note">Mapa pokazuje, że Święto Półrocza jest wydarzeniem globalnym i może zaczynać się w różnych miejscach o różnych godzinach lokalnych.</p>
+  </div>
+</div>
+
+      </section>
+
+      <div class="footer">© 2025-2026 HappyHalfYear - Wszelkie prawa zastrzeżone</div>
+    </main>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
