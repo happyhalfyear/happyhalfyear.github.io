@@ -3,574 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HappyHalfYear</title>
+  <title>HappyHalfYear - Strona główna</title>
   <meta name="theme-color" content="#0f1020" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Material+Symbols+Rounded:FILL@0..1&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #070814;
-      --bg-2: #0e1230;
-      --card: rgba(15, 18, 42, 0.68);
-      --card-strong: rgba(18, 22, 56, 0.9);
-      --line: rgba(255, 255, 255, 0.12);
-      --text: #eef2ff;
-      --muted: rgba(238, 242, 255, 0.72);
-      --accent: #7c5cff;
-      --accent-2: #00d4ff;
-      --accent-3: #ff4fd8;
-      --good: #66ffb3;
-      --shadow: 0 24px 80px rgba(0, 0, 0, 0.38);
-      --radius: 28px;
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      color: var(--text);
-      min-height: 100vh;
-      background:
-        radial-gradient(circle at 15% 20%, rgba(124, 92, 255, 0.28), transparent 22%),
-        radial-gradient(circle at 85% 15%, rgba(0, 212, 255, 0.18), transparent 20%),
-        radial-gradient(circle at 70% 78%, rgba(255, 79, 216, 0.16), transparent 22%),
-        linear-gradient(135deg, #050611, #090b19 40%, #0c1030 100%);
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
-      background-size: 52px 52px;
-      mask-image: radial-gradient(circle at center, black 20%, transparent 85%);
-      pointer-events: none;
-      opacity: 0.45;
-    }
-
-    .app {
-      width: min(1240px, calc(100% - 24px));
-      margin: 12px auto 24px;
-      display: grid;
-      grid-template-columns: 290px 1fr;
-      gap: 18px;
-      min-height: calc(100vh - 36px);
-      position: relative;
-      z-index: 1;
-    }
-
-    .sidebar,
-    .content {
-      backdrop-filter: blur(22px);
-      -webkit-backdrop-filter: blur(22px);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-      border-radius: var(--radius);
-      overflow: hidden;
-    }
-
-    .sidebar {
-      background: linear-gradient(180deg, rgba(15, 18, 42, 0.9), rgba(8, 10, 24, 0.84));
-      padding: 22px;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      position: sticky;
-      top: 12px;
-      height: calc(100vh - 24px);
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 6px 4px 16px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .brand-badge {
-      width: 54px;
-      height: 54px;
-      border-radius: 18px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      box-shadow: 0 0 30px rgba(124, 92, 255, 0.35);
-      font-size: 28px;
-      animation: floaty 4.5s ease-in-out infinite;
-    }
-
-    .brand h1 {
-      margin: 0;
-      font-size: 1.15rem;
-      line-height: 1.1;
-      letter-spacing: 0.02em;
-    }
-
-    .brand p {
-      margin: 6px 0 0;
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-
-    .menu-title {
-      font-size: 0.78rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: rgba(238, 242, 255, 0.52);
-      margin: 6px 6px 0;
-    }
-
-    .nav {
-      display: grid;
-      gap: 10px;
-    }
-
-    .tab-btn {
-      appearance: none;
-      text-decoration: none;
-      display: flex;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.03);
-      color: var(--text);
-      border-radius: 18px;
-      padding: 14px 14px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font: inherit;
-      text-align: left;
-      transition: 0.25s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .tab-btn .material-symbols-rounded {
-      font-size: 22px;
-      color: #cfd6ff;
-      transition: 0.25s ease;
-    }
-
-    .tab-btn span.label {
-      font-weight: 600;
-      font-size: 0.96rem;
-    }
-
-    .tab-btn::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(124, 92, 255, 0.15), rgba(0, 212, 255, 0.08));
-      opacity: 0;
-      transition: 0.25s ease;
-    }
-
-    .tab-btn:hover {
-      transform: translateY(-1px);
-      border-color: rgba(255,255,255,0.16);
-      background: rgba(255,255,255,0.06);
-    }
-
-    .tab-btn:hover::after,
-    .tab-btn.active::after {
-      opacity: 1;
-    }
-
-    .tab-btn:visited {
-      color: var(--text);
-    }
-
-    .tab-btn.active {
-      border-color: rgba(124, 92, 255, 0.42);
-      box-shadow: inset 0 0 0 1px rgba(124, 92, 255, 0.18);
-    }
-
-    .tab-btn.active .material-symbols-rounded {
-      color: white;
-    }
-
-    .sidebar-footer {
-      margin-top: auto;
-      padding-top: 18px;
-      border-top: 1px solid rgba(255,255,255,0.08);
-      color: var(--muted);
-      font-size: 0.92rem;
-      line-height: 1.6;
-    }
-
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 14px;
-    }
-
-    .pill {
-      padding: 8px 11px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
-      font-size: 0.82rem;
-      color: var(--text);
-    }
-
-    .content {
-      background: linear-gradient(180deg, rgba(18, 22, 56, 0.72), rgba(8, 9, 22, 0.82));
-      position: relative;
-    }
-
-    .hero {
-      padding: 34px 30px 20px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: -2px;
-      background: radial-gradient(circle at 20% 20%, rgba(124, 92, 255, 0.2), transparent 30%),
-                  radial-gradient(circle at 80% 0%, rgba(0, 212, 255, 0.18), transparent 28%),
-                  radial-gradient(circle at 70% 80%, rgba(255, 79, 216, 0.12), transparent 34%);
-      pointer-events: none;
-    }
-
-    .hero-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .status {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    .status-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--good);
-      box-shadow: 0 0 18px rgba(102, 255, 179, 0.8);
-    }
-
-    .hero-main {
-      position: relative;
-      z-index: 1;
-      padding: 30px 0 12px;
-      max-width: 820px;
-    }
-
-    .neon-title {
-      font-size: clamp(2.7rem, 6vw, 5.8rem);
-      line-height: 0.95;
-      margin: 0;
-      font-weight: 900;
-      letter-spacing: 0.02em;
-      text-transform: none;
-      color: #fff;
-      text-shadow:
-        0 0 10px rgba(124, 92, 255, 0.7),
-        0 0 24px rgba(0, 212, 255, 0.5),
-        0 0 42px rgba(255, 79, 216, 0.35);
-      animation: glowPulse 3s ease-in-out infinite;
-    }
-
-    .subtitle {
-      margin: 18px 0 0;
-      font-size: clamp(1.02rem, 1.8vw, 1.22rem);
-      color: rgba(238, 242, 255, 0.84);
-      max-width: 58ch;
-      line-height: 1.75;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 22px;
-    }
-
-    .button {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 14px 18px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,0.12);
-      font-weight: 700;
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: 0.25s ease;
-      text-decoration: none;
-      color: white;
-      background: rgba(255,255,255,0.06);
-    }
-
-    .button.primary {
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      border-color: transparent;
-      box-shadow: 0 14px 40px rgba(124, 92, 255, 0.25);
-    }
-
-    .button:hover {
-      transform: translateY(-2px);
-    }
-
-    .content-area {
-      padding: 24px 30px 30px;
-    }
-
-    .page {
-      display: none;
-      animation: fadeUp 0.45s ease both;
-    }
-
-    .page.active { display: block; }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1.3fr 0.9fr;
-      gap: 18px;
-      align-items: stretch;
-    }
-
-    .card {
-      border-radius: 24px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: 0 14px 40px rgba(0,0,0,0.18);
-      padding: 20px;
-    }
-
-    .card h2, .card h3 {
-      margin: 0 0 10px;
-    }
-
-    .card p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.8;
-    }
-
-    .section-title {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 14px;
-      font-size: 1.05rem;
-    }
-
-    .section-title .material-symbols-rounded {
-      color: #b6c3ff;
-    }
-
-    .info-box {
-      display: grid;
-      gap: 14px;
-    }
-
-    .mini {
-      display: grid;
-      gap: 8px;
-      padding: 16px;
-      border-radius: 18px;
-      background: rgba(7, 9, 24, 0.42);
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .mini strong {
-      font-size: 1.1rem;
-    }
-
-    .countdown {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-top: 6px;
-    }
-
-    .time-box {
-      padding: 18px 12px;
-      text-align: center;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .time-box .num {
-      display: block;
-      font-size: clamp(1.5rem, 3vw, 2.35rem);
-      font-weight: 800;
-      line-height: 1;
-      margin-bottom: 8px;
-    }
-
-    .time-box .txt {
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-
-    .news-list {
-      display: grid;
-      gap: 14px;
-    }
-
-    .news-item {
-      display: grid;
-      grid-template-columns: 54px 1fr;
-      gap: 14px;
-      align-items: start;
-      padding: 16px;
-      border-radius: 20px;
-      background: rgba(7, 9, 24, 0.4);
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .news-icon {
-      width: 54px;
-      height: 54px;
-      border-radius: 18px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, rgba(124, 92, 255, 0.25), rgba(0, 212, 255, 0.18));
-      font-size: 24px;
-    }
-
-    .news-item h4 {
-      margin: 0 0 6px;
-      font-size: 1rem;
-    }
-
-    .news-item p {
-      font-size: 0.95rem;
-    }
-
-    .form {
-      display: grid;
-      gap: 12px;
-    }
-
-    .field {
-      display: grid;
-      gap: 8px;
-    }
-
-    label {
-      font-size: 0.92rem;
-      color: rgba(238,242,255,0.84);
-      font-weight: 600;
-    }
-
-    input, select, textarea {
-      width: 100%;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(10, 12, 28, 0.55);
-      color: var(--text);
-      padding: 14px 15px;
-      border-radius: 16px;
-      font: inherit;
-      outline: none;
-      transition: 0.2s ease;
-    }
-
-    input:focus, select:focus, textarea:focus {
-      border-color: rgba(124, 92, 255, 0.6);
-      box-shadow: 0 0 0 4px rgba(124, 92, 255, 0.12);
-    }
-
-    textarea { min-height: 140px; resize: vertical; }
-
-    .map-frame {
-      width: 100%;
-      min-height: 380px;
-      border: 0;
-      border-radius: 22px;
-      overflow: hidden;
-      filter: saturate(1.05) contrast(1.02);
-    }
-
-    .map-note {
-      margin-top: 12px;
-      color: var(--muted);
-      font-size: 0.95rem;
-      line-height: 1.7;
-    }
-
-    .footer {
-      padding: 18px 30px 26px;
-      color: rgba(238,242,255,0.66);
-      font-size: 0.92rem;
-      border-top: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .sparkle {
-      display: inline-block;
-      animation: sparkle 2.4s ease-in-out infinite;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    @keyframes glowPulse {
-      0%, 100% { transform: translateY(0); filter: saturate(1); }
-      50% { transform: translateY(-2px); filter: saturate(1.2); }
-    }
-
-    @keyframes floaty {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-5px) rotate(3deg); }
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes sparkle {
-      0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
-      50% { transform: scale(1.15) rotate(10deg); opacity: 0.8; }
-    }
-
-    @media (max-width: 1080px) {
-      .app { grid-template-columns: 1fr; }
-      .sidebar {
-        position: relative;
-        height: auto;
-      }
-      .grid-2 { grid-template-columns: 1fr; }
-    }
-
-    @media (max-width: 720px) {
-      .app { width: min(100% - 14px, 1240px); margin-top: 7px; }
-      .hero, .content-area, .footer { padding-left: 18px; padding-right: 18px; }
-      .countdown { grid-template-columns: repeat(2, 1fr); }
-      .hero-top { flex-direction: column; align-items: flex-start; }
-      .news-item { grid-template-columns: 1fr; }
-      .news-icon { width: 48px; height: 48px; }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="app">
+    
     <aside class="sidebar">
       <div class="brand">
         <div class="brand-badge">✨</div>
@@ -582,25 +24,20 @@
 
       <div class="menu-title">Menu</div>
       <nav class="nav" aria-label="Główna nawigacja">
-        <a class="tab-btn active" href="#home" data-page="home">
-          <span class="material-symbols-rounded">home</span>
-          <span class="label">Strona główna</span>
+        <a class="tab-btn" href="index.html">
+          <span class="material-symbols-rounded">home</span><span class="label">Strona główna</span>
         </a>
-        <a class="tab-btn" href="#countdown" data-page="countdown">
-          <span class="material-symbols-rounded">schedule</span>
-          <span class="label">Odliczanie</span>
+        <a class="tab-btn" href="countdown.html">
+          <span class="material-symbols-rounded">schedule</span><span class="label">Odliczanie</span>
         </a>
-        <a class="tab-btn" href="#news" data-page="news">
-          <span class="material-symbols-rounded">newspaper</span>
-          <span class="label">Najnowsze wiadomości</span>
+        <a class="tab-btn" href="news.html">
+          <span class="material-symbols-rounded">newspaper</span><span class="label">Najnowsze wiadomości</span>
         </a>
-        <a class="tab-btn" href="#contact" data-page="contact">
-          <span class="material-symbols-rounded">mail</span>
-          <span class="label">Kontakt</span>
+        <a class="tab-btn" href="contact.html">
+          <span class="material-symbols-rounded">mail</span><span class="label">Kontakt</span>
         </a>
-        <a class="tab-btn" href="#map" data-page="map">
-          <span class="material-symbols-rounded">map</span>
-          <span class="label">Mapa</span>
+        <a class="tab-btn" href="map.html">
+          <span class="material-symbols-rounded">map</span><span class="label">Mapa</span>
         </a>
       </nav>
 
@@ -614,7 +51,7 @@
         </div>
       </div>
     </aside>
-
+    
     <main class="content">
       <section class="hero">
         <div class="hero-top">
@@ -628,197 +65,42 @@
       </section>
 
       <section class="content-area">
-        <div id="home" class="page active">
-          <div class="grid-2">
-            <div class="card">
-              <div class="section-title"><span class="material-symbols-rounded">info</span><h2>Co to jest Święto Półrocza?</h2></div>
-              <p>
-                Święto Półrocza to wydarzenie, które ma na celu świętowanie połowy roku. Zaczyna się w nocy z 30 czerwca na 1 lipca, kiedy kończy się pierwsze półrocze roku, a zaczyna drugie. To doskonała okazja, aby zresetować swoje cele, podsumować osiągnięcia i przygotować się na kolejną połowę roku. W zależności od strefy czasowej, moment ten jest obchodzony o północy lokalnego czasu, co oznacza, że w różnych miejscach świata święto rozpoczyna się w różnych godzinach. Na przykład, gdy w Moskwie jest północ, w Polsce jest 23:00, a w Londynie 22:00.
-              </p>
-              <div style="height:14px"></div>
-              <p>
-                Kiedy występuje Święto Półrocza?<br><br>
-                Drugie półrocze roku 2026 rozpoczyna się z 30 czerwca na 1 lipca. W każdym kraju moment ten będzie obchodzony o północy czasu lokalnego, w zależności od strefy czasowej. W miejscach położonych na wschód od Polski, takich jak Moskwa, święto rozpocznie się wcześniej, a na zachodzie, na przykład w Londynie, później. To globalne wydarzenie, które jednoczy różne strefy czasowe tego samego dnia, ale o różnych godzinach.
-              </p>
-            </div>
-            <div class="info-box">
-              <div class="card mini">
-                <strong>Połowa roku, nowy start</strong>
-                <p>Lepszy moment na odświeżenie planów, celów i energii.</p>
-              </div>
-              <div class="card mini">
-                <strong>Neonowy klimat</strong>
-                <p>Animacje, szkło i światło dają nowoczesny wygląd strony.</p>
-              </div>
-              <div class="card mini">
-                <strong>Wszystko na jednej stronie</strong>
-                <p>Menu przełącza sekcje bez przeładowania, płynnie i lekko.</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        
+<div class="page">
+  <div class="grid-2">
+    <div class="card">
+      <div class="section-title"><span class="material-symbols-rounded">info</span><h2>Co to jest Święto Półrocza?</h2></div>
+      <p>
+        Święto Półrocza to wydarzenie, które ma na celu świętowanie połowy roku. Zaczyna się w nocy z 30 czerwca na 1 lipca, kiedy kończy się pierwsze półrocze roku, a zaczyna drugie. To doskonała okazja, aby zresetować swoje cele, podsumować osiągnięcia i przygotować się na kolejną połowę roku. W zależności od strefy czasowej, moment ten jest obchodzony o północy lokalnego czasu, co oznacza, że w różnych miejscach świata święto rozpoczyna się w różnych godzinach. Na przykład, gdy w Moskwie jest północ, w Polsce jest 23:00, a w Londynie 22:00.
+      </p>
+      <div style="height:14px"></div>
+      <p>
+        Kiedy występuje Święto Półrocza?<br><br>
+        Drugie półrocze roku 2026 rozpoczyna się z 30 czerwca na 1 lipca. W każdym kraju moment ten będzie obchodzony o północy czasu lokalnego, w zależności od strefy czasowej. W miejscach położonych na wschód od Polski, takich jak Moskwa, święto rozpocznie się wcześniej, a na zachodzie, na przykład w Londynie, później. To globalne wydarzenie, które jednoczy różne strefy czasowe tego samego dnia, ale o różnych godzinach.
+      </p>
+    </div>
+    <div class="info-box">
+      <div class="card mini">
+        <strong>Połowa roku, nowy start</strong>
+        <p>Lepszy moment na odświeżenie planów, celów i energii.</p>
+      </div>
+      <div class="card mini">
+        <strong>Neonowy klimat</strong>
+        <p>Animacje, szkło i światło dają nowoczesny wygląd strony.</p>
+      </div>
+      <div class="card mini">
+        <strong>Wszystko na osobnych stronach</strong>
+        <p>Menu prowadzi do podstron bez tagów # i bez kombinowania.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
-        <div id="countdown" class="page">
-          <div class="card">
-            <div class="section-title"><span class="material-symbols-rounded">timer</span><h2>Odliczanie do 1 lipca 2026</h2></div>
-            <p>Liczymy do startu drugiego półrocza w czasie lokalnym.</p>
-            <div class="countdown" aria-live="polite">
-              <div class="time-box"><span id="days" class="num">00</span><span class="txt">dni</span></div>
-              <div class="time-box"><span id="hours" class="num">00</span><span class="txt">godzin</span></div>
-              <div class="time-box"><span id="minutes" class="num">00</span><span class="txt">minut</span></div>
-              <div class="time-box"><span id="seconds" class="num">00</span><span class="txt">sekund</span></div>
-            </div>
-            <div style="height:16px"></div>
-            <p id="countdownNote">Trwa przygotowanie do wielkiego startu.</p>
-          </div>
-        </div>
-
-        <div id="news" class="page">
-          <div class="card">
-            <div class="section-title"><span class="material-symbols-rounded">campaign</span><h2>Najnowsze wiadomości</h2></div>
-            <div class="news-list">
-              <article class="news-item">
-                <div class="news-icon">🎉</div>
-                <div>
-                  <h4>Nowa oprawa świąteczna uruchomiona</h4>
-                  <p>Świeże efekty świetlne, neon i płynne przejścia sprawiają, że strona wygląda nowocześnie i dynamicznie.</p>
-                </div>
-              </article>
-              <article class="news-item">
-                <div class="news-icon">✨</div>
-                <div>
-                  <h4>Przygotowania do północy trwają</h4>
-                  <p>Wszystko jest gotowe na odświeżenie planów, cele i celebrację nowego półrocza z wyjątkowym stylem.</p>
-                </div>
-              </article>
-              <article class="news-item">
-                <div class="news-icon">🌍</div>
-                <div>
-                  <h4>Święto w różnych strefach czasowych</h4>
-                  <p>Moment startu różni się zależnie od kraju, więc globalna zabawa dzieje się o różnych godzinach na całym świecie.</p>
-                </div>
-              </article>
-            </div>
-          </div>
-        </div>
-
-        <div id="contact" class="page">
-          <div class="card">
-            <div class="section-title"><span class="material-symbols-rounded">contact_mail</span><h2>Kontakt</h2></div>
-            <form class="form" id="contactForm">
-              <div class="field">
-                <label for="email">Twój email</label>
-                <input id="email" type="email" placeholder="np. name@example.com" required />
-              </div>
-              <div class="field">
-                <label for="category">Wybierz kategorię</label>
-                <select id="category" required>
-                  <option>Wsparcie</option>
-                  <option>Brakujący obrazek</option>
-                  <option>Błędne dane</option>
-                  <option>Pytanie</option>
-                </select>
-              </div>
-              <div class="field">
-                <label for="message">Opisz problem</label>
-                <textarea id="message" placeholder="Napisz, co trzeba poprawić..." required></textarea>
-              </div>
-              <button class="button primary" type="submit"><span class="material-symbols-rounded">send</span> Wyślij zgłoszenie</button>
-              <p id="formMsg" class="hidden"></p>
-            </form>
-          </div>
-        </div>
-
-        <div id="map" class="page">
-          <div class="card">
-            <div class="section-title"><span class="material-symbols-rounded">location_on</span><h2>Mapa</h2></div>
-            <iframe
-              class="map-frame"
-              title="Mapa świata"
-              src="https://www.openstreetmap.org/export/embed.html?bbox=-180%2C-60%2C180%2C80&layer=mapnik"
-              loading="lazy">
-            </iframe>
-            <p class="map-note">Mapa pokazuje, że Święto Półrocza jest wydarzeniem globalnym i może zaczynać się w różnych miejscach o różnych godzinach lokalnych.</p>
-          </div>
-        </div>
       </section>
 
       <div class="footer">© 2025-2026 HappyHalfYear - Wszelkie prawa zastrzeżone</div>
     </main>
   </div>
-
-  <script>
-    const buttons = document.querySelectorAll('.tab-btn');
-    const pages = document.querySelectorAll('.page');
-
-    function switchPage(id) {
-      pages.forEach(page => page.classList.toggle('active', page.id === id));
-      buttons.forEach(btn => btn.classList.toggle('active', btn.dataset.page === id));
-    }
-
-    buttons.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const target = btn.dataset.page;
-        if (target) {
-          e.preventDefault();
-          switchPage(target);
-          document.getElementById(target)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          history.replaceState(null, '', `#${target}`);
-        }
-      });
-    });
-
-    const initialHash = window.location.hash.replace('#', '');
-    if (initialHash && document.getElementById(initialHash)) {
-      switchPage(initialHash);
-    }
-
-    const targetDate = new Date('2026-07-01T00:00:00');
-    const daysEl = document.getElementById('days');
-    const hoursEl = document.getElementById('hours');
-    const minutesEl = document.getElementById('minutes');
-    const secondsEl = document.getElementById('seconds');
-    const noteEl = document.getElementById('countdownNote');
-
-    function updateCountdown() {
-      const now = new Date();
-      const diff = targetDate - now;
-
-      if (diff <= 0) {
-        daysEl.textContent = '00';
-        hoursEl.textContent = '00';
-        minutesEl.textContent = '00';
-        secondsEl.textContent = '00';
-        noteEl.textContent = 'Święto Półrocza właśnie trwa!';
-        return;
-      }
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-
-      daysEl.textContent = String(days).padStart(2, '0');
-      hoursEl.textContent = String(hours).padStart(2, '0');
-      minutesEl.textContent = String(minutes).padStart(2, '0');
-      secondsEl.textContent = String(seconds).padStart(2, '0');
-
-      noteEl.textContent = `Do 1 lipca 2026 zostało ${days} dni, ${hours} godzin, ${minutes} minut i ${seconds} sekund.`;
-    }
-
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-
-    const form = document.getElementById('contactForm');
-    const msg = document.getElementById('formMsg');
-
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      msg.classList.remove('hidden');
-      msg.textContent = 'Dziękujemy! Zgłoszenie zostało zapisane lokalnie w interfejsie strony.';
-      msg.style.color = 'var(--good)';
-      form.reset();
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
