@@ -1,4 +1,6 @@
 
+
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -126,7 +128,7 @@
   <div class="container">
     <div id="countdown"></div>
     <div id="label">UTC +14</div>
-    <div id="message">Happy New Midier 2025!</div>
+    <div id="message">Happy Half Year 2026!</div>
   </div>
 
 <script>
@@ -134,7 +136,41 @@
   const timezones = [
     { label: "UTC +14", offset: 14 },
     { label: "UTC +13", offset: 13 },
-    { label: "UTC +12:45", offset: 12.75 }
+    { label: "UTC +12:45", offset: 12.75 },
+    { label: "UTC +12", offset: 12 },
+    { label: "UTC +11", offset: 11 },
+    { label: "UTC +10", offset: 10 },
+    { label: "UTC +9:30", offset: 9.5 },
+    { label: "UTC +9", offset: 9 },
+    { label: "UTC +8:45", offset: 8.75 },
+    { label: "UTC +8", offset: 8 },
+    { label: "UTC +7", offset: 7 },
+    { label: "UTC +6.5", offset: 6.5 },
+    { label: "UTC +6", offset: 6 },
+    { label: "UTC +5:45", offset: 5.75 },
+    { label: "UTC +5:30", offset: 5.5 },
+    { label: "UTC +5", offset: 5 },
+    { label: "UTC +4:30", offset: 4.5 },
+    { label: "UTC +4", offset: 4 },
+    { label: "UTC +3:30", offset: 3.5 },
+    { label: "UTC +3", offset: 3 },
+    { label: "UTC +2", offset: 2 },
+    { label: "UTC +1", offset: 1 },
+    { label: "UTC +0", offset: 0 },
+    { label: "UTC -1", offset: -1 },
+    { label: "UTC -2", offset: -2 },
+    { label: "UTC -2:30", offset: -2.5 },
+    { label: "UTC -3", offset: -3 },
+    { label: "UTC -4", offset: -4 },
+    { label: "UTC -5", offset: -5 },
+    { label: "UTC -6", offset: -6 },
+    { label: "UTC -7", offset: -7 },
+    { label: "UTC -8", offset: -8 },
+    { label: "UTC -9", offset: -9 },
+    { label: "UTC -9:30", offset: -9.5 },
+    { label: "UTC -10", offset: -10 },
+    { label: "UTC -11", offset: -11 },
+    { label: "UTC -12", offset: -12 }
     // mo0—4esz doda0Œ4 kolejne strefy je0”2li chcesz
   ];
 
@@ -161,10 +197,7 @@
     const space = document.createElement('span');
     space.className = 'space';
     countdownElem.appendChild(space);
-    for(let i=0; i<2; i++) createDigitWrapper(); // dni 2 cyfry
-    createSeparator();
-    for(let i=0; i<2; i++) createDigitWrapper(); // godziny 2 cyfry
-    createSeparator();
+    
     for(let i=0; i<2; i++) createDigitWrapper(); // minuty 2 cyfry
     createSeparator();
     for(let i=0; i<2; i++) createDigitWrapper(); // sekundy 2 cyfry
@@ -227,12 +260,11 @@ const seconds = remainder % 60;
     // Mo0—4esz rozszerzy0Œ4 na bardziej zaawansowane ukrywanie, je0”2li chcesz
     // Podobnie mo0—4na zrobi0Œ4 z godzinami i minutami je0”2li chcesz, ale tutaj zostawiam je zawsze widoczne
 
-    const daysStr = pad(days);
-    const hoursStr = pad(hours);
+    
     const minutesStr = pad(minutes);
     const secondsStr = pad(seconds);
 
-    const fullStr = daysStr + hoursStr + minutesStr + secondsStr;
+    const fullStr = minutesStr + secondsStr;
 
     const wrappers = countdownElem.querySelectorAll('.digit-wrapper');
     for(let i=0; i < wrappers.length; i++) {
