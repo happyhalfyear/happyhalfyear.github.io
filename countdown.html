@@ -127,14 +127,14 @@
 <body>
   <div class="container">
     <div id="countdown"></div>
-    <div id="label">UTC -12</div>
-    <div id="message">Happy Half Year 2026 For Everyone!</div>
+    <div id="label">UTC +14</div>
+    <div id="message">Happy Half Year 2027!</div>
   </div>
 
 <script>
   // Lista stref i ich offset¨®w w godzinach
   const timezones = [
-    { label: "UTC -12", offset: -12 }
+    { label: "UTC +14", offset: 14 }
     // mo0—4esz doda0Œ4 kolejne strefy je0”2li chcesz
   ];
 
@@ -144,7 +144,7 @@
   function setTargetForZone(index) {
     const tz = timezones[index];
     // 1 lipca 2025, 00:00 UTC (miesi0Œ2c = 6, bo zero-index w JS)
-    const targetUTC = Date.UTC(2026, 6, 1, 0, 0, 0);
+    const targetUTC = Date.UTC(2027, 6, 1, 0, 0, 0);
     const offsetMs = tz.offset * 60 * 60 * 1000;
     return targetUTC - offsetMs;
   }
@@ -162,6 +162,10 @@
     space.className = 'space';
     countdownElem.appendChild(space);
     
+    for(let i=0; i<2; i++) createDigitWrapper(); // dni 2 cyfry
+    createSeparator();
+    for(let i=0; i<2; i++) createDigitWrapper(); // godziny 2 cyfry
+    createSeparator();
     for(let i=0; i<2; i++) createDigitWrapper(); // minuty 2 cyfry
     createSeparator();
     for(let i=0; i<2; i++) createDigitWrapper(); // sekundy 2 cyfry
@@ -225,11 +229,13 @@ const seconds = remainder % 60;
     // Podobnie mo0—4na zrobi0Œ4 z godzinami i minutami je0”2li chcesz, ale tutaj zostawiam je zawsze widoczne
 
     
+    const daysStr = pad(days);
+    const hoursStr = pad(hours);
     const minutesStr = pad(minutes);
     const secondsStr = pad(seconds);
 
-    const fullStr = minutesStr + secondsStr;
-
+    const fullStr = daysStr + hoursStr + minutesStr + secondsStr;
+    
     const wrappers = countdownElem.querySelectorAll('.digit-wrapper');
     for(let i=0; i < wrappers.length; i++) {
       const digit = Number(fullStr[i]);
